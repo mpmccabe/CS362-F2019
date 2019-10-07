@@ -1256,7 +1256,7 @@ int baronEffect(int choice1, struct gameState *state)
     if (choice1 > 0) { //Boolean true or going to discard an estate
         int p = 0;//Iterator for hand!
         int card_not_discarded = 1;//Flag for discard set!
-        while(card_not_discard){
+        while(card_not_discarded){
             if (state->hand[currentPlayer][p] == estate){ //Found an estate card!
                 state->coins += 4;//Add 4 coins to the amount of coins
                 state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
@@ -1345,6 +1345,7 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
                         discardCard(handPos, i, state, 0);
                     }
                     //draw 4
+                    int j;
                     for (j = 0; j < 4; j++)
                     {
                         drawCard(i, state);
