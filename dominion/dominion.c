@@ -1148,7 +1148,8 @@ int baronEffect(int choice1, struct gameState *state)
         int card_not_discarded = 1;//Flag for discard set!
         while(card_not_discarded){
             if (state->hand[currentPlayer][p] == estate){ //Found an estate card!
-                state->coins += 4;//Add 4 coins to the amount of coins
+                state->coins = 4;//Add 4 coins to the amount of coins
+                // state->coins += 4;//Add 4 coins to the amount of coins bug #1
                 state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
                 state->discardCount[currentPlayer]++;
                 for (; p < state->handCount[currentPlayer]; p++){
@@ -1167,9 +1168,10 @@ int baronEffect(int choice1, struct gameState *state)
                     gainCard(estate, state, 0, currentPlayer);
 
                     state->supplyCount[estate]--;//Decrement estates
-                    if (supplyCount(estate, state) == 0){
-                        isGameOver(state);
-                    }
+                    // bug #2
+                    // if (supplyCount(estate, state) == 0){
+                    //     isGameOver(state);
+                    // }
                 }
                 card_not_discarded = 0;//Exit the loop
             }
@@ -1203,11 +1205,13 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
     int currentPlayer = whoseTurn(state);
     discardCard(handPos, currentPlayer, state, 0);
 
-    if (choice1)
+    if (choice2)
+    // if (choice1) bug #1
     {
         state->coins = state->coins + 2;
     }
-    else if (choice2)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
+    //else if (choice2)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
+    else if (choice1)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
     {
         //discard hand
         while(numHandCards(state) > 0)
@@ -1217,7 +1221,8 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
 
         //draw 4
         int i;
-        for (i = 0; i < 4; i++)
+        for (i = 0; i <= 4; i++)
+        // for (i = 0; i < 4; i++) bug 1
         {
             drawCard(currentPlayer, state);
         }
