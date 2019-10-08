@@ -1315,7 +1315,7 @@ int tributeEffect(struct gameState *state)
         }
 
         else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
-            drawCard(currentPlayer, state);
+            // drawCard(currentPlayer, state); bug #2
             drawCard(currentPlayer, state);
         }
         else { //Action Card
@@ -1375,6 +1375,7 @@ int ambassadorEffect(int choice1, int choice2, struct gameState *state, int hand
     //discard played card from hand
     discardCard(handPos, currentPlayer, state, 0);
 
+    //trash copies of cards returned to supply
     for (j = 0; j < choice2; j++)
     {
         for (i = 0; i < state->handCount[currentPlayer]; i++)
