@@ -1107,12 +1107,14 @@ int mineEffect(int choice1, int choice2, struct gameState *state, int handPos)
         return -1;
     }
 
-    if (choice2> treasure_map || choice2 < curse)
+    if (choice2 < treasure_map || choice2 < curse)
+    // if (choice2 > treasure_map || choice2 < curse) bug #1
     {
         return -1;
     }
 
-    if ( (getCost(state->hand[currentPlayer][choice1]) + 3 ) > getCost(choice2) )
+    // if ( (getCost(state->hand[currentPlayer][choice1]) + 3 ) > getCost(choice2) ) bug #2
+    if ( (getCost(state->hand[currentPlayer][choice1]) + 2 ) > getCost(choice2) ) 
     {
         return -1;
     }
