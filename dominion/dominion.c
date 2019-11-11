@@ -1107,11 +1107,14 @@ int mineEffect(int choice1, int choice2, struct gameState *state, int handPos)
         return -1;
     }
 
-    if (choice2 < treasure_map || choice2 < curse)
-    // if (choice2 > treasure_map || choice2 < curse) bug #1
+    // if (choice2 < treasure_map || choice2 < curse) // bug #1
+    if (choice2 > treasure_map || choice2 < curse)
     {
         return -1;
     }
+
+    printf("cost of choice1: %d\n", getCost(state->hand[currentPlayer][choice1]) + 3);
+    printf("cost of choice2: %d\n", getCost(choice2));
 
     // if ( (getCost(state->hand[currentPlayer][choice1]) + 3 ) > getCost(choice2) ) bug #2
     if ( (getCost(state->hand[currentPlayer][choice1]) + 2 ) > getCost(choice2) ) 
@@ -1205,13 +1208,13 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
     int currentPlayer = whoseTurn(state);
     discardCard(handPos, currentPlayer, state, 0);
 
-    if (choice2)
+    if (choice1)
     // if (choice1) bug #1
     {
         state->coins = state->coins + 2;
     }
     //else if (choice2)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
-    else if (choice1)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
+    else if (choice2)   //discard hand, redraw 4, other players with 5+ cards discard hand and draw 4 
     {
         //discard hand
         while(numHandCards(state) > 0)
@@ -1222,7 +1225,7 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
         //draw 4
         int i;
         for (i = 0; i <= 4; i++)
-        // for (i = 0; i < 4; i++) bug 1
+        // for (i = 0; i < 4; i++) bug 2
         {
             drawCard(currentPlayer, state);
         }
@@ -1332,7 +1335,8 @@ int ambassadorEffect(int choice1, int choice2, struct gameState *state, int hand
     
     int currentPlayer = whoseTurn(state);
 
-    if (choice2 > 0 || choice2 < 0)
+    /*bug #1 fixed*/
+    if (choice2 > 2 || choice2 < 0)
     {
         return -1;
     }
@@ -1345,7 +1349,8 @@ int ambassadorEffect(int choice1, int choice2, struct gameState *state, int hand
     int i;
     for (i = 0; i < state->handCount[currentPlayer]; i++)
     {
-        if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+        /*bug 2 fixed*/
+        if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1]  && i != choice1)
         {
             j++;
         }
