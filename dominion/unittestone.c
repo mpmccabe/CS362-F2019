@@ -63,5 +63,18 @@ int main(){
     else{
         printf("Copper replaced with something else, test failed\n");
     }
+
+    printf("----------------- Test 3: %s ----------------\n", TESTCARD);
+    printf("swap duchy for gold\n");
+    memcpy(&testG, &G, sizeof(struct gameState));
+    hand_pos = 2;
+    return_status = mineEffect(hand_pos, gold, &testG, hand_pos);
+    printf("mineEffect return status: %d\n", return_status);
+    if (return_status < 0){
+        printf("Duchy not replaced - limits correctly working, test passed.\n");
+    }
+    else{
+        printf("Duchy was replaced - test failed.\n");
+    }
  
 }

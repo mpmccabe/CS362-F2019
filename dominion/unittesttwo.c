@@ -165,7 +165,7 @@ void test_three(struct gameState G, int thisPlayer){
     int found_hand_estate;
     int return_status;
     printf("----------------- Test 3: %s ----------------\n", TESTCARD);
-    printf("try to discard estate I don't have game\n");
+    printf("try to discard estate I don't have\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
     return_status = baronEffect(1, &testG);

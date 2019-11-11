@@ -8,6 +8,8 @@
 
 void test_one(struct gameState G);
 void test_two(struct gameState G);
+void test_three(struct gameState G);
+void test_four(struct gameState G);
 
 int main(){
     struct gameState G;
@@ -80,7 +82,7 @@ void test_one(struct gameState G){
             printf("player: %d, discard card[%d]: %d\n", p, i, testG.discard[p][i]);
         }
     }
-    int thisPlayer = 0;
+    
     int testCount = testG.handCount[0];
     if (testCount == 2){
         printf("Player 0 handcount == 2. Test passed.\n");
