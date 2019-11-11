@@ -5,14 +5,22 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+  /* pool - all ASCII characters */
+    return rand() % 128 + 0;
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+
+  char char_pool[] = "rest";
+  char returnString[5];
+  for (int i = 0; i < 6; i++){
+    int pool_choice = rand() % strlen(char_pool);
+    returnString[i] = char_pool[pool_choice];
+  }
+  returnString[5] = 0;
+  char* ptr = returnString;
+  return ptr;
 }
 
 void testme()
