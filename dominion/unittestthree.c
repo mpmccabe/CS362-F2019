@@ -62,7 +62,6 @@ void test_one(struct gameState G){
     printf("discard hand\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    int playedCards = testG.playedCardCount;
     minionEffect(0, 1, &testG, 0);
 
     printf("----------------- Test Case ----------------\n");
