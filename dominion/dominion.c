@@ -1255,8 +1255,9 @@ int minionEffect(int choice1, int choice2, struct gameState *state, int handPos)
 
 int tributeEffect(struct gameState *state)
 {
-    // int tributeRevealedCards[2] = {-1, -1}; bug 1
-    int tributeRevealedCards[1] = {-1, -1};
+    int tributeRevealedCards[2] = {-1, -1}; 
+    // bug 1
+    // int tributeRevealedCards[1] = {-1, -1};
 
     int currentPlayer = whoseTurn(state);
     int nextPlayer = currentPlayer + 1;
