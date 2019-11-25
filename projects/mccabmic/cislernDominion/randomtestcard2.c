@@ -100,7 +100,8 @@ int test_one(struct gameState G, int choiceOne, int choiceTwo, int handpos){
     }
 
 
-    int return_status = minionEffect(choiceOne, choiceTwo, &testG, handpos);
+    int return_status = minionEffect(&testG, 0, choiceOne, choiceTwo, handpos);
+    // int return_status = minionEffect(choiceOne, choiceTwo, &testG, handpos);
 
     if (return_status < 0){
         printf("Function returned negative.\n");
@@ -149,7 +150,8 @@ int test_two(struct gameState G, int choiceOne, int choiceTwo, int handpos){
         return -1;
     }
 
-    int return_status = minionEffect(choiceOne, choiceTwo, &testG, handpos);
+    int return_status = minionEffect(&testG, 0, choiceOne, choiceTwo, handpos);
+    // int return_status = minionEffect(choiceOne, choiceTwo, &testG, handpos);
 
      if (return_status < 0){
         printf("Function returned negative.\n");

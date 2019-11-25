@@ -66,7 +66,7 @@ void test_one(struct gameState G){
     }
     
     int discardedCard = testG.hand[0][2];
-    ambassadorEffect(2, 2, &testG, 0);
+    ambassadorEffect(0, 2, 2, &testG, 0, 0);
 
     /* choice1 = hand#, choice2 = number to return to supply */
     printf("----------------- Test Results ----------------\n");
@@ -121,7 +121,7 @@ void test_two(struct gameState G){
     
     
     int discardedCard = testG.hand[0][1];
-    ambassadorEffect(1, 1, &testG, 0);
+    ambassadorEffect(0, 1, 1, &testG, 0, 0);
 
     /* choice1 = hand#, choice2 = number to return to supply */
     printf("----------------- Test Results ----------------\n");
@@ -178,7 +178,7 @@ void test_three(struct gameState G){
     }    
     
     int discardedCard = testG.hand[0][1];
-    ambassadorEffect(1, 0, &testG, 0);
+    ambassadorEffect(0, 1, 0, &testG, 0, 0);
 
     /* choice1 = hand#, choice2 = number to return to supply */
     printf("----------------- Test Results ----------------\n");
@@ -220,7 +220,8 @@ void test_four(struct gameState G){
     printf("choose 2 cards to return to supply but only have 1 of them\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    int return_status = ambassadorEffect(1, 2, &testG, 0);
+    // int return_status = ambassadorEffect(1, 2, &testG, 0);
+    int return_status = ambassadorEffect(0, 1, 2, &testG, 0);
 
     if (return_status < 0){
         printf("function returned -1, test passed\n");

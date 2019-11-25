@@ -62,7 +62,10 @@ void test_one(struct gameState G){
     printf("discard hand\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    minionEffect(0, 1, &testG, 0);
+    // minionEffect(0, 1, &testG, 0);
+
+    minionEffect(&testG, 0, 0, 1, 0);
+
 
     printf("----------------- Test Case ----------------\n");
     int thisPlayer = 0;
@@ -87,7 +90,10 @@ void test_two(struct gameState G){
     printf("choose coins hand\n");
     memcpy(&testG, &G, sizeof(struct gameState));
     int numCoins =  testG.coins;
-    minionEffect(1, 0, &testG, 0);
+    // minionEffect(1, 0, &testG, 0);
+
+    minionEffect(&testG, 0, 1, 0, 0);
+
     
     printf("----------------- Test Case ----------------\n");
     printf("Current playedCards: %d\n", testG.playedCardCount);

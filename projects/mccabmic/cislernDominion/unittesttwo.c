@@ -63,7 +63,8 @@ void test_one(struct gameState G, int thisPlayer){
     printf("----------------- Test 1: %s ----------------\n", TESTCARD);
     printf("discard an estate\n");
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(1, &testG);
+    return_status = baronEffect(&testG, 0, 1);
+
     printf("baronEffect return status: %d\n", return_status);
     printf("Current handcount: %d\n", testG.handCount[thisPlayer]);
     printf("Current deckcount: %d\n", testG.deckCount[thisPlayer]);
@@ -116,7 +117,7 @@ void test_two(struct gameState G, int thisPlayer){
     printf("don't discard an estate\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(0, &testG);
+    return_status = baronEffect(&testG, 0, 0);
     /*expectation: gained an estate into discard pile, no coins were added, no estates discarded*/
     printf("baronEffect return status: %d\n", return_status);
     printf("Current handcount: %d\n", testG.handCount[thisPlayer]);
@@ -168,7 +169,7 @@ void test_three(struct gameState G, int thisPlayer){
     printf("try to discard estate I don't have\n");
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(1, &testG);
+    return_status = baronEffect(&testG, 0, 1);
     /*expectation: gained an estate into discard pile, no coins were added, no estates discarded*/
     printf("baronEffect return status: %d\n", return_status);
     printf("Current handcount: %d\n", testG.handCount[thisPlayer]);

@@ -37,7 +37,7 @@ int main(){
     printf("swap copper for silver\n");
     memcpy(&testG, &G, sizeof(struct gameState));
     int hand_pos = 1;
-    int return_status = mineEffect(hand_pos, silver, &testG, hand_pos);
+    int return_status = mineEffect(hand_pos, silver, &testG, hand_pos, 0);
     printf("mineEffect return status: %d\n", return_status);
 
     if(testG.hand[thisPlayer][1] == silver){
@@ -51,7 +51,7 @@ int main(){
     printf("swap copper for gold\n");
     memcpy(&testG, &G, sizeof(struct gameState));
     hand_pos = 1;
-    return_status = mineEffect(hand_pos, gold, &testG, hand_pos);
+    return_status = mineEffect(hand_pos, gold, &testG, hand_pos, 0);
     printf("mineEffect return status: %d\n", return_status);
 
     if(testG.hand[thisPlayer][1] == copper){
@@ -68,7 +68,7 @@ int main(){
     printf("swap duchy for gold\n");
     memcpy(&testG, &G, sizeof(struct gameState));
     hand_pos = 2;
-    return_status = mineEffect(hand_pos, gold, &testG, hand_pos);
+    return_status = mineEffect(hand_pos, gold, &testG, hand_pos, 0);
     printf("mineEffect return status: %d\n", return_status);
     if (return_status < 0){
         printf("Duchy not replaced - limits correctly working, test passed.\n");

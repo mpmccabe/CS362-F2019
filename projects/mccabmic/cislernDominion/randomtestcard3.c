@@ -81,7 +81,7 @@ int test_one(struct gameState G, int thisPlayer){
 
     
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(1, &testG);
+    return_status = baronEffect(&testG, 0, 1);
 
     if (return_status < 0){
         return -1;
@@ -139,7 +139,7 @@ int test_two(struct gameState G, int thisPlayer){
     printf("----------------- don't discard an estate: %s ----------------\n", TESTCARD);
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(0, &testG);
+    return_status = baronEffect(&testG,0, 0);
 
      if (return_status < 0){
         return -1;
@@ -195,7 +195,7 @@ int test_three(struct gameState G, int thisPlayer){
     printf("-----------------try to discard estate I don't have: %s ----------------\n", TESTCARD);
 
     memcpy(&testG, &G, sizeof(struct gameState));
-    return_status = baronEffect(1, &testG);
+    return_status = baronEffect(&testG,0, 1);
     
     /*expectation: gained an estate into discard pile, no coins were added, no estates discarded*/
 
