@@ -1,0 +1,8 @@
+Our group determined that this was not a bug.  
+The while loop described in the original bug report runs for as 
+long as the player has not chosen a valid card.  The hand is reset 
+and updateCoins runs and the coins are counted correctly for each 
+treasure card in the hand.  Because the player’s hand is all blank, 
+the player’s coin count becomes 5 but will not leave the loop until 
+the player buys something. When the function returns, playCard then 
+updates the coin count correctly because the hand has been restored.
