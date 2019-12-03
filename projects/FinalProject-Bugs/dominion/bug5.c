@@ -1,63 +1,56 @@
+/*********************************************************************************
+
+Bug #5 
+In the scoreFor function, the discardCount is being used for the deck count.
+bug5.c 
+gcc -o bug5 bug5.c -g dominion.o rngs.o -Wall -fpic -coverage -lm -std=c99
+
+
+
+**********************************************************************************/
+
+
 #include "dominion.h"
 #include "dominion_helpers.h"
+#include "rngs.h"
 #include <string.h>
 #include <stdio.h>
-#include "rngs.h"
+#include <math.h>
+#include <stdlib.h>
 
-#define TESTCARD "scoreFor()"
+int main() 
+{
 
-void test_one(struct gameState G, int thisPlayer);
+    //variables 
+    int currentScore;
+    int seed = 1000;
+    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
+	struct gameState state;
 
-int main(){
-    struct gameState G;
-    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
-                    sea_hag, tribute, smithy
-                };
+    //initialize game
+    initializeGame(2, k, seed, &state);
 
-    int seed = 1100;
-    int numPlayer = 2;
-    int thisPlayer = 0;
+	printf("\n**** Begin Test of scoreFor function ****\n");
 
-    initializeGame(numPlayer, k, seed, &G);
+    //test variables and cards
+    state.handCount[0] = 0;
+    state.discardCount[0] = 2;
+    state.deck[0][0] = estate;
+    state.deck[0][1] = duchy;
+    state.deck[0][2] = duchy;
+    state.deck[0][3] = province;
 
-    /*hard set the player's hand*/
-    G.hand[thisPlayer][0] = baron;
-    G.hand[thisPlayer][1] = copper;
-    G.hand[thisPlayer][2] = duchy;
-    G.hand[thisPlayer][3] = estate;
-    G.hand[thisPlayer][4] = feast;
+    //calculate scoreFor 
+    currentScore = scoreFor(0, &state);
 
-    /* view hand */
-    printf("----------------- Base Case ----------------\n");
-    printf("Current handcount: %d\n", G.handCount[thisPlayer]);
-    printf("Current deckcount: %d\n", G.deckCount[thisPlayer]);
-    printf("Current discardCount: %d\n", G.discardCount[thisPlayer]);
-    printf("Current coins: %d\n", G.coins);
-
-    for (int i = 0; i < G.handCount[thisPlayer]; i++){
-        printf("hand card[%d]: %d\n", i, G.hand[thisPlayer][i]);
+    //assert correct victory points score
+    if (currentScore == 13) {
+        printf("scoreFor from deck count correct: PASSED\n");
+    }
+    else {
+        printf("scoreFor deck count correct: FAILED\n");
     }
 
-    for (int i = 0; i < G.deckCount[thisPlayer]; i++){
-        printf("deck card[%d]: %d\n", i, G.deck[thisPlayer][i]);
-    }
-
-    for (int i = 0; i < G.discardCount[thisPlayer]; i++){
-        printf("deck card[%d]: %d\n", i, G.discard[thisPlayer][i]);
-    }
-
-    test_one(G, thisPlayer);
-
-    printf("----------------- Modified Case ----------------\n");
-    printf("Current handcount: %d\n", G.handCount[thisPlayer]);
-    printf("Current deckcount: %d\n", G.deckCount[thisPlayer]);
-    printf("Current discardCount: %d\n", G.discardCount[thisPlayer]);
-    printf("Current coins: %d\n", G.coins);
-    G.hand[thisPlayer][3] = silver;
-
-}
-
-void test_one(struct gameState G, int thisPlayer){
-    printf("----------------- Test 1: %s ----------------\n", TESTCARD);
-   
+	printf("\n******* End Test of scoreFor function ***********\n");
+    return 0;
 }
