@@ -14,11 +14,15 @@ unittests: bug8.c bug5.c bug7.c dominion.o rngs.o
 	gcc -o bug5 -g  bug5.c dominion.o rngs.o $(CFLAGS)
 	gcc -o bug8 -g bug8.c dominion.o rngs.o $(CFLAGS)
 	gcc -o bug7 -g bug7.c dominion.o rngs.o $(CFLAGS)
-
+	gcc -o bug9 -g bug9.c dominion.o rngs.o $(CFLAGS)
+	gcc -o bug10 -g bug10.c dominion.o rngs.o $(CFLAGS)
+	
 runalltests: unittests
 	./bug5 >> randomtestresults.out
 	./bug7 >> randomtestresults.out
 	./bug8 >> randomtestresults.out
+	./bug9 >> randomtestresults.out
+	./bug10 >> randomtestresults.out
 
 testresults: runalltests
 	gcov dominion.c -f -b >> unittestresult.out
