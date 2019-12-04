@@ -895,12 +895,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             int card_not_discarded = 1;//Flag for discard set!
             while(card_not_discarded) {
                 if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
-                    
-                    /* bug 8 fix */
-                    if (bonus) {
-                     *bonus += 4;
+		    if(bonus){
+		     *bonus += 4;
                     }
-		    //state->coins += 4;//Add 4 coins to the amount of coins
                     state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
                     state->discardCount[currentPlayer]++;
                     for (; p < state->handCount[currentPlayer]; p++) {
@@ -1101,6 +1098,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case ambassador:
         j = 0;		//used to check if player has enough cards to discard
+		
 
         if (choice2 > 2 || choice2 < 0)
         {
@@ -1115,9 +1113,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
             //changed for bug10
-			//if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
-			if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i !=choice1)
-			
+			//if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i !=choice1)
+			if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
             {
                 j++;
             }
@@ -1150,7 +1147,9 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             for (i = 0; i < state->handCount[currentPlayer]; i++)
             {
-                if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
+                //changed for bug10
+				if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
+				
                 {
                     discardCard(i, currentPlayer, state, 1);
                     break;
