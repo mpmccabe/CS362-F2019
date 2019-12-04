@@ -43,12 +43,23 @@ int main() {
 
     memcpy(&test, &state, sizeof(struct gameState));
 
-    int output = cardEffect(mine, choice1, choice2, choice3, &test, handPos, &bonus);
+    test.supplyCount[province] == 1;
+
+    for(int i = 0 ; i < 27; i++) {
+        if (i < 24) {
+            test.supplyCount[i] = 1;
+        }
+        else {
+            test.supplyCount[i] = 0;
+        }
+    }
+
+    int output = isGameOver(&test);
 
     if (output == 0) {
         printf("Test Failed!");
     }
-    else if (output == -1) {
+    else if (output == 1) {
         printf("Test Passed!");
     }
 
