@@ -467,7 +467,7 @@ int scoreFor (int player, struct gameState *state) {
     }
 
     //score from deck
-    for (i = 0; i < state->deckCount[player]; i++)
+    for (i = 0; i < state->discardCount[player]; i++)
     {
         if (state->deck[player][i] == curse) {
             score = score - 1;
@@ -1068,19 +1068,29 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i < 2; i ++) {
-            if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
-                state->coins += 2;
+        //for (i = 0; i <= 2; i ++) {  //changed for bug9
+		for (i=0; i < 2; i++) {
+			//added in to fix bug9, removed
+			//if(tributeRevealedCards[i] == -1){
+				//break;
+				//}
+				if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
+                
+				//state->coins += 2; changed for bug9
+				*bonus +=2;
             }
 
             else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
-            else { //Action Card
+            //changed for bug9
+			//else { //Action Card 
+			else if (tributeRevealedCards[i] !=-1) {
                 state->numActions = state->numActions + 2;
             }
         }
+		discardCard(handPos, currentPlayer, state, 0);  //added in for bug9
 
         return 0;
 
@@ -1099,7 +1109,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            //changed for bug10
+			//if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+			if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i !=choice1)
+			
             {
                 j++;
             }
@@ -1370,3 +1383,4 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 //end of dominion.c
+
