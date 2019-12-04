@@ -18,51 +18,42 @@ gcc -o bug10 bug10.c -g dominion.o rngs.o -Wall -fpic -coverage -lm -std=c99
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 
-int main (int argc, char** argv) 
+int main () 
 {
-   int player1;
+   int player1 = 0;
+   //int player1; no have to set to 0
    int seed = 1000;
    int numPlayer = 2;
-   int bonus = 0;
    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
    struct gameState G;
 
+
+   printf("*****Begin test for ambassador bug 10 *****\n");
+   memset(&G, 23, sizeof(struct gameState));
    //initialize the game
    initializeGame(numPlayer, k, seed, &G);
    
    //set current player as player1
-   player1 = whoseTurn(&G);
+   //player gets 5 cards
+    G.handCount[player1] = 5;
+    G.hand[player1][0] = copper;
+    G.hand[player1][1] = copper;
+    G.hand[player1][2] = gold;
+    G.hand[player1][3] = gold;
+    G.hand[player1][4] = ambassador;
 
-   //give player1 an ambassador card 
-   gainCard(ambassador, &G, 2, player1);
+    int result = cardEffect(ambassador, 3, 2, 0, &G, 4, 0);
 
-   //give player1 2 similar cards
-   gainCard(duchy, &G, 2, player1);
-   gainCard(duchy, &G, 2, player1);
+    if (result == 0)
+    {
+        printf("**** Expect: 0 , Actual: %d: Passes **** \n", result);
+    }
+    else
+    {
+        printf("**** Expect: 0 , Actual: %d:  Fails **** %d\n", result);
+    }
 
-   //save preSupply total 
-   int preSupply = G.supplyCount[duchy];
-
-   //play ambassador card
-   cardEffect(ambassador, duchy, 2, 0, &G, 0, &bonus);
-
-   //save postSupply total
-   int postSupply = G.supplyCount[duchy];
-
-   if(postSupply == preSupply + 2){
-       
-       printf("  preSupply total: %d\n", preSupply);
-       printf("  postSupply total: %d\n", postSupply);
-	   printf("**** Passes**** \n");
-   }
-   else{
-       
-       printf("  preSupply total: %d\n", preSupply);
-       printf("  postSupply total: %d\n", postSupply);
-	   printf("**** Fails**** \n");
-   }
-
-
-   return 0;
+    printf("******End Bug 10 Test for ambassador card *********  \n");
 }
