@@ -22,7 +22,7 @@ int main()
 {
 
     //variables 
-    int currentScore;
+    int currentScore = 0;
     int seed = 1000;
     int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
 	struct gameState state;
@@ -34,7 +34,9 @@ int main()
 
     //test variables and cards
     state.handCount[0] = 0;
-    state.discardCount[0] = 2;
+    state.discardCount[0] = 0;
+    state.deckCount[0] = 4;
+
     state.deck[0][0] = estate;
     state.deck[0][1] = duchy;
     state.deck[0][2] = duchy;
@@ -44,6 +46,8 @@ int main()
     currentScore = scoreFor(0, &state);
 
     //assert correct victory points score
+    
+    printf("currentScore: %d\n", currentScore);
     if (currentScore == 13) {
         printf("scoreFor from deck count correct: PASSED\n");
     }
