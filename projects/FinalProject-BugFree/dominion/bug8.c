@@ -73,8 +73,7 @@ int main()
 
     // compare coinCount and assert if not equal
     printf("playCard() before_coins: %d after_coins: %d\n", before_coins, after_coins);
-
-    if (control_coins != after_coins){
+    if (after_coins != before_coins + 4){
         printf("control coins does not equal after coins. test failed.\n");
     } else{
         printf("control coins equals after coins. test passed\n");
