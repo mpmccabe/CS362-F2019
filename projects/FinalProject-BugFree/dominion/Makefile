@@ -22,19 +22,19 @@ unittests: bug1.c bug2.c bug3.c bug4.c bug8.c bug5.c bug7.c bug9.c bug10.c domin
 	gcc -o bug10 -g bug10.c dominion.o rngs.o $(CFLAGS)
 
 runalltests: unittests
-	./bug1 >> randomtestresults.out
-	./bug2 >> randomtestresults.out
-	./bug3 >> randomtestresults.out
-	./bug4 >> randomtestresults.out
-	./bug5 >> randomtestresults.out
-	./bug7 >> randomtestresults.out
-	./bug8 >> randomtestresults.out
-	./bug9 >> randomtestresults.out
-	./bug10 >> randomtestresults.out
+	./bug1 >> unittestresults.out
+	./bug2 >> unittestresults.out
+	./bug3 >> unittestresults.out
+	./bug4 >> unittestresults.out
+	./bug5 >> unittestresults.out
+	./bug7 >> unittestresults.out
+	./bug8 >> unittestresults.out
+	./bug9 >> unittestresults.out
+	./bug10 >> unittestresults.out
 
-testresults: runalltests
-	gcov dominion.c -f -b >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+unittestresults: runalltests
+	gcov dominion.c -f -b >> unittestresults.out
+	cat dominion.c.gcov >> unittestresults.out
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
