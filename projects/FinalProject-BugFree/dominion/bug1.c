@@ -45,10 +45,10 @@ int main() {
     int output = cardEffect(mine, choice1, choice2, choice3, &test, handPos, &bonus);
 
    if (test.playedCardCount == 0) {
-        printf("Test Failed!\n");
+        printf("Test Passed!\n");
     }
     else {
-        printf("Test Passed!\n");
+        printf("Test Failed!\n");
     }
 
     printf("\n******* End Test of discardCard() function in mine ***********\n");
