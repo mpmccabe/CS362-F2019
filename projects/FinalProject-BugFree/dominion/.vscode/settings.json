@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "dominion_helpers.h": "c",
+        "dominion.h": "c"
+    }
+}
