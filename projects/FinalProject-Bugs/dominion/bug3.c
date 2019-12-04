@@ -23,8 +23,8 @@ int main() {
     struct gameState state, test;
     int currentPlayer = 0;
     int handPos = 2;
-    int choice1 = 0;
-    int choice2 = 2;
+    int choice1 = copper;
+    int choice2 = gold;
     int choice3 = 0;
     int bonus = 0;
     int numPlayers = 2;
